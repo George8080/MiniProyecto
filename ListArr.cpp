@@ -19,39 +19,39 @@ ListArr::~ListArr(){
 	queue<Node*> arreglos;
 	nodos.push(root);
 	while(!nodos.empty()){
-		if(left_child!=nullptr)
-			nodos.push(left_child)
-		if(right_child!=nullptr)
-			nodos.push(right_child)
+		if((nodos.front())->left_child!=nullptr)
+			nodos.push((nodos.front())->left_child);
+		if((nodos.front())->right_child!=nullptr)
+			nodos.push((nodos.front())->right_child);
 
-		if(left_arr!=nullptr)
-			arreglos.push(left_arr)
-		if(right_arr!=nullptr)
-			arreglos.push(right_arr)
+		if((nodos.front())->left_arr!=nullptr)
+			arreglos.push((nodos.front())->left_arr);
+		if((nodos.front())->right_arr!=nullptr)
+			arreglos.push((nodos.front())->right_arr);
 
 		NodeSummary* auxSum = nodos.front();
-		nodos.pop()
+		nodos.pop();
 		delete auxSum;
 	}
 	while(!arreglos.empty()){
-		Node* auxNode = nodos.front();
-		nodos.pop()
+		Node* auxNode = arreglos.front();
+		arreglos.pop();
 		delete auxNode;
 	}
 }
 
 
 ////////////	Crear arbol de nodos	////////////
-void createTree(){
+void ListArr::createTree(){
 	queue<NodeSummary*> nodos;
 	nodos.push(root);
 	while(!nodos.empty()){
-		if(left_child!=nullptr)
-			nodos.push(left_child)
-		if(right_child!=nullptr)
-			nodos.push(right_child)
+		if((nodos.front())->left_child!=nullptr)
+			nodos.push((nodos.front())->left_child);
+		if((nodos.front())->right_child!=nullptr)
+			nodos.push((nodos.front())->right_child);
 		NodeSummary* auxSum = nodos.front();
-		nodos.pop()
+		nodos.pop();
 		delete auxSum;
 	}
 	Node* arr = head;
@@ -139,7 +139,7 @@ void ListArr::insert(int v, int pos){
 				aux = aux->next;
 			}
 			aux->arr[0] = v;
-			aux->total_size++;
+			(aux->num_elements)++;
 			this->num_elements++;
 			while(this->maxSize < actual){
 				this->maxSize *= 2;
@@ -172,7 +172,7 @@ void ListArr::insert(int v, int pos){
 					auxNode = aux->right_arr;
 				}
 			}
-			if(auxNode->num_elements=<i){
+			if(auxNode->num_elements<=i){
 				auxNode->arr[auxNode->num_elements] = v;
 			}else{
 				Node* extra = new Node(arrSize);
@@ -192,15 +192,10 @@ void ListArr::insert(int v, int pos){
 
 ////////////	Imprimir todos los elementos	////////////
 void ListArr::print(){
-	NodeSummary* aux = root;
-	Node* array = nullptr;
-	while(aux->left_child != nullptr){
-		aux = aux->left_child;
-	}
-	array = aux->left_arr;
+	Node* array = head;
 	while(true){
 		for (int i = 0; i < array->num_elements; ++i){
-			cout << b[i] << " ";
+			cout << array->arr[i] << " ";
 		}
 		if(array->next==nullptr) break;
 		array = array->next;

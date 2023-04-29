@@ -3,14 +3,15 @@
 #ifndef LISTARR_H
 #define LISTARR_H
 
-
 using namespace std;
+
+    
 
 class ListArr : public ListArrADT {
 private:
-     struct Node {
+    struct Node {
         int *arr;
-        const int b;
+        int b;
         int num_elements;
         Node *next;
         
@@ -27,7 +28,7 @@ private:
     };
 
     struct NodeSummary {
-        const int total_capacity;
+        int total_capacity;
         int total_size;
         NodeSummary* left_child;
         NodeSummary* right_child;
@@ -42,7 +43,7 @@ private:
             right_arr = nullptr;
         }
         void generateTree(int s, int max, Node* &arr){
-            if(arr == nullptr) return NULL;
+            if(arr == nullptr) return;
             if(s == max*2){
                 this->left_arr = arr;
                 this->total_size += arr->num_elements;
@@ -55,21 +56,20 @@ private:
             }else{
                 this->left_child = new NodeSummary(s/2);
                 this->right_child = new NodeSummary(s/2);
-                (this->left_child).generateTree(s/2,max,arr);
-                (this->right_child).generateTree(s/2,max,arr);
-                this->total_size = (this->left_child).total_size + (this->right_child).total_size;
+                (this->left_child)->generateTree(s/2,max,arr);
+                (this->right_child)->generateTree(s/2,max,arr);
+                this->total_size = (this->left_child)->total_size + (this->right_child)->total_size;
             }
         }
     };
-
     int maxSize;
-    const int arrSize;
+    int arrSize;
     int num_elements;
     NodeSummary* root;
     Node* head;
 
 public:
-    ListArr();
+    ListArr(int b);
     ~ListArr();
     int size();
     void insert_left(int v);
