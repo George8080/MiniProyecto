@@ -50,6 +50,7 @@ int main(){
 
 	}
 
+	cout << "Tiempo total de la operacion: " << total_time << "nanosegundos" << endl;
 	cout << "Tiempo promedio de la operacion: " << total_time/n << "nanosegundos" << endl;
 
 	delete la;
