@@ -19,38 +19,38 @@ int main(){
 		auto start_time= chrono::high_resolution_clock::now();
 		la->insert_left(5);
 		auto end_time = chrono::high_resolution_clock::now();
-		auto duration_time = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+		auto duration_time = chrono::duration_cast<chrono::nanoseconds>(end_time - start_time).count();
 		total_time += duration_time;
 
 	}
 
-	cout << "Tiempo total de la operacion: " << total_time << "segundos" << endl;
-	cout << "Tiempo promedio de la operacion: " << total_time/n << "segundos" << endl;
+	cout << "Tiempo total de la operacion: " << total_time << " nanosegundos" << endl;
+	cout << "Tiempo promedio de la operacion: " << total_time/n << " nanosegundos" << endl;
 
 	cout << "\nInsert right: " << endl;
 	for(unsigned long long i=0; i<n ; ++i){
 		auto start_time= chrono::high_resolution_clock::now();
 		la->insert_right(5);
 		auto end_time = chrono::high_resolution_clock::now();
-		auto duration_time = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+		auto duration_time = chrono::duration_cast<chrono::nanoseconds>(end_time - start_time).count();
 		total_time += duration_time;
 
 	}
 
-	cout << "Tiempo total de la operacion: " << total_time << "segundos" << endl;
-	cout << "Tiempo promedio de la operacion: " << total_time/n << "segundos" << endl;
+	cout << "Tiempo total de la operacion: " << total_time << " nanosegundos" << endl;
+	cout << "Tiempo promedio de la operacion: " << total_time/n << " nanosegundos" << endl;
 
 	cout << "\nFind: \n" << endl;
 	for(unsigned long long i=0; i<n ; ++i){
 		auto start_time= chrono::high_resolution_clock::now();
 		la->find(5);
 		auto end_time = chrono::high_resolution_clock::now();
-		auto duration_time = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
+		auto duration_time = chrono::duration_cast<chrono::nanoseconds>(end_time - start_time).count();
 		total_time += duration_time;
 
 	}
 
-	cout << "Tiempo promedio de la operacion: " << total_time/n << "segundos" << endl;
+	cout << "Tiempo promedio de la operacion: " << total_time/n << " nanosegundos" << endl;
 
 	delete la;
 

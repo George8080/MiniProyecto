@@ -9,7 +9,8 @@ ListArr::ListArr(int b){
 	this->arrSize = b;
 	this->num_elements = 0;
 	this->root = new NodeSummary(maxSize);
-	(this->root)->left_arr = new Node(b);
+	this->head = new Node(b);
+	(this->root)->left_arr = head;
 }
 
 
@@ -193,7 +194,7 @@ void ListArr::insert(int v, int pos){
 ////////////	Imprimir todos los elementos	////////////
 void ListArr::print(){
 	Node* array = head;
-	while(true){
+	while(array != nullptr){
 		for (int i = 0; i < array->num_elements; ++i){
 			cout << array->arr[i] << " ";
 		}
@@ -207,7 +208,7 @@ void ListArr::print(){
 ////////////	Buscar si existe el entero 'v'	////////////
 bool ListArr::find(int v){
 	Node* array = head;
-	while(true){
+	while(array != nullptr){
 		for (int i = 0; i < array->num_elements; ++i){
 			if(array->arr[i] == v) return true;
 		}
