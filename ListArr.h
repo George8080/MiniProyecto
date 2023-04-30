@@ -55,16 +55,20 @@ private:
                 }
             }else{
                 this->left_child = new NodeSummary(s/2);
-                this->right_child = new NodeSummary(s/2);
                 (this->left_child)->generateTree(s/2,max,arr);
-                (this->right_child)->generateTree(s/2,max,arr);
-                this->total_size = (this->left_child)->total_size + (this->right_child)->total_size;
+                this->total_size = (this->left_child)->total_size;
+                if(arr != nullptr) {
+                    this->right_child = new NodeSummary(s/2);
+                    (this->right_child)->generateTree(s/2,max,arr);
+                    this->total_size += (this->right_child)->total_size;
+                }
             }
         }
     };
     int maxSize;
     int arrSize;
     int num_elements;
+    int num_arrays;
     NodeSummary* root;
     Node* head;
 
