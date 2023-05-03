@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-////////////	Constructor	del Arbol	////////////
+////////////	Constructor del Arbol	////////////
 ListArr::ListArr(int b){
 	this->maxSize = b*2;
 	this->arrSize = b;
@@ -85,6 +85,7 @@ void ListArr::insert_left(int v){
 	Node* array = head;
 	if(array->num_elements == 0){
 		array->num_elements = 1;
+		this->num_elements = 1;
 		array->arr[0] = v;
 	}else{
 		int temp = v;
@@ -95,9 +96,10 @@ void ListArr::insert_left(int v){
 			Node* extra = new Node(arrSize);
 			extra->arr[0] = temp;
 			extra->num_elements++;
+			this->num_elements++;
 			extra->next = array->next;
 			num_arrays++;
-		if( num_arrays*arrSize > maxSize ) maxSize*=2;
+			if( num_arrays*arrSize > maxSize ) maxSize*=2;
 			array->next = extra;
 			this->createTree();
 			extra = nullptr;
@@ -105,6 +107,7 @@ void ListArr::insert_left(int v){
 		}else{
 			array->arr[array->num_elements] = temp;
 			array->num_elements++;
+			this->num_elements++;
 		}
 	}
 	array = nullptr;
@@ -137,10 +140,12 @@ void ListArr::insert_right(int v){
 	if(array->num_elements<arrSize){
 		array->arr[num_elements] = v;
 		array->num_elements++;
+		this->num_elements++;
 	}else{
 		Node* extra = new Node(arrSize);
 		extra->arr[0] = v;
 		extra->num_elements++;
+		this->num_elements++;
 		extra->next = array->next;
 		num_arrays++;
 		if( num_arrays*arrSize > maxSize ) maxSize*=2;
@@ -156,64 +161,61 @@ void ListArr::insert_right(int v){
 ////////////	Insertar elemento en 'i'	////////////
 void ListArr::insert(int v, int pos){
 	try{
-		if(pos<0)
+		if(0 > pos || num_elements < pos)
 			throw "ERROR: Indice esta fuera del arreglo!!";
-		if(pos >= maxSize){
-			Node* aux = head;
-			while(aux->next != nullptr)
-				aux = aux->next;
-			int actual = maxSize;
-			while(actual < pos){
-				actual += this->arrSize;
-				aux->next = new Node(arrSize);
-				aux = aux->next;
-			}
-			aux->arr[0] = v;
-			(aux->num_elements)++;
-			this->num_elements++;
-			while(this->maxSize < actual){
-				this->maxSize *= 2;
-			}
-			this->createTree();
-		}
-		else{
-			NodeSummary* aux = root;
-			int i = pos;
-			while(aux->left_arr == nullptr || aux->right_arr == nullptr){
-				if(aux->right_child == nullptr){
+		NodeSummary* aux = root;
+		Node* auxNode;
+		int i = pos;
+		(aux->total_size)++;
+		while(aux->left_arr == nullptr || aux->right_arr == nullptr){
+			if(aux->right_child == nullptr){
+				aux = aux->left_child;
+			}else{
+				if(i < (aux->left_child)->total_size)
 					aux = aux->left_child;
-				}else{
-					if(i < (aux->left_child)->total_size)
-						aux = aux->left_child;
-					else{
-						i = i - (aux->left_child)->total_size;
-						aux = aux->right_child;
-					}
-				}
-			}
-			Node* auxNode;
-			if(aux->right_arr == nullptr){
-				auxNode = aux->left_arr;
-			}else{
-				if(i < (aux->left_arr)->num_elements)
-					auxNode = aux->left_arr;
 				else{
-					i = i - (aux->left_arr)->num_elements;
-					auxNode = aux->right_arr;
+					i = i - (aux->left_child)->total_size;
+					aux = aux->right_child;
 				}
 			}
-			if(auxNode->num_elements<=i){
-				auxNode->arr[auxNode->num_elements] = v;
-			}else{
-				Node* extra = new Node(arrSize);
-				extra->arr[0] = v;
-				extra->num_elements++;
-				extra->next = auxNode->next;
-				auxNode->next = extra;
-				this->createTree();
+			(aux->total_size)++;
+		}
+
+		if(aux->right_arr == nullptr){
+			auxNode = aux->left_arr;
+		}else{
+			if(i < (aux->left_arr)->num_elements)
+				auxNode = aux->left_arr;
+			else{
+				i = i - (aux->left_arr)->num_elements;
+				auxNode = aux->right_arr;
 			}
+		}
+		int temp = v;
+		for (int j = i; j < auxNode->num_elements; ++j){
+			swap(temp,auxNode->arr[j]);
+		}
+		if(auxNode->num_elements==auxNode->b){
+			Node* extra = new Node(arrSize);
+			extra->arr[0] = temp;
+			extra->num_elements++;
+			this->num_elements++;
+			extra->next = auxNode->next;
+			num_arrays++;
+			if( num_arrays*arrSize > maxSize ) maxSize*=2;
+			auxNode->next = extra;
+			this->createTree();
+			extra = nullptr;
+			delete extra;
+		}else{
+			auxNode->arr[auxNode->num_elements] = temp;
+			auxNode->num_elements++;
 			this->num_elements++;
 		}
+		aux = nullptr;
+		delete aux;
+		auxNode = nullptr;
+		delete auxNode;
 	} catch(const char* message) {
         cerr << message << endl;
     }
