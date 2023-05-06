@@ -137,8 +137,8 @@ void ListArr::insert_right(int v){
 	aux = nullptr;
 	delete aux;
 
-	if(array->num_elements<arrSize){
-		array->arr[num_elements] = v;
+	if(array->num_elements < arrSize){
+		array->arr[array->num_elements] = v;
 		array->num_elements++;
 		this->num_elements++;
 	}else{
@@ -158,7 +158,7 @@ void ListArr::insert_right(int v){
 	delete array;
 }
 
-////////////	Insertar elemento en 'i'	////////////
+////////////	Insertar elemento en 'pos'	////////////
 void ListArr::insert(int v, int pos){
 	try{
 		if(0 > pos || num_elements < pos)
@@ -168,11 +168,12 @@ void ListArr::insert(int v, int pos){
 		int i = pos;
 		(aux->total_size)++;
 		while(aux->left_arr == nullptr || aux->right_arr == nullptr){
-			if(aux->right_child == nullptr){
+			if(i < (aux->left_child)->total_size){
 				aux = aux->left_child;
 			}else{
-				if(i < (aux->left_child)->total_size)
+				if(aux->right_child == nullptr){
 					aux = aux->left_child;
+				}
 				else{
 					i = i - (aux->left_child)->total_size;
 					aux = aux->right_child;
