@@ -10,8 +10,8 @@ using namespace std;
 int main(){
 	random_device rd;
 
-	const unsigned long long n = 1000;
-	const unsigned long long b = 10;
+	const unsigned long long n = 1000000;
+	const unsigned long long b = 1;
 	const long long maxRandValue = 3;
 	double total_time=0;
 	
@@ -19,8 +19,9 @@ int main(){
 	cout << "\n-LIST ARRAY:" << endl;
 	ListArr *la = new ListArr(b);
 	
-	cout << "\nInsert left: \n" << endl;
+	cout << "\nInsert left: " << endl;
 	for(unsigned long long i=0; i<n/2 ; ++i){
+		//cout << i << ' ';
 		auto start_time= chrono::high_resolution_clock::now();
 		la->insert_left(rd()%maxRandValue);
 		auto end_time = chrono::high_resolution_clock::now();
@@ -28,12 +29,13 @@ int main(){
 		total_time += duration_time;
 	}
 	
-	cout << "Tiempo total de la operacion: " << total_time / 1e9 << " segundos" << endl;
+	cout << "\nTiempo total de la operacion: " << total_time / 1e9 << " segundos" << endl;
 	cout << "Tiempo promedio de la operacion: " << total_time/(n/2) << " nanosegundos" << endl;
 	total_time = 0;
 
-	cout << "\nInsert right: \n" << endl;
+	cout << "\nInsert right: " << endl;
 	for(unsigned long long i=0; i<n/2 ; ++i){
+		//cout << i << ' ';
 		auto start_time= chrono::high_resolution_clock::now();
 		la->insert_right(rd()%maxRandValue);
 		auto end_time = chrono::high_resolution_clock::now();
@@ -41,19 +43,20 @@ int main(){
 		total_time += duration_time;
 	}
 
-	cout << "Tiempo total de la operacion: " << total_time / 1e9 << " segundos" << endl;
+	cout << "\nTiempo total de la operacion: " << total_time / 1e9 << " segundos" << endl;
 	cout << "Tiempo promedio de la operacion: " << total_time/(n/2) << " nanosegundos" << endl;
 	total_time = 0;
 
-	cout << "\nFind: \n" << endl;
+	cout << "\nFind: " << endl;
 	for(unsigned long long i=0; i<n ; ++i){
+		//cout << i << ' ';
 		auto start_time= chrono::high_resolution_clock::now();
 		la->find(rd()%(maxRandValue*2));
 		auto end_time = chrono::high_resolution_clock::now();
 		auto duration_time = chrono::duration_cast<chrono::nanoseconds>(end_time - start_time).count();
 		total_time += duration_time;
 	}
-	cout << "Tiempo total de la operacion: " << total_time / 1e9 << " segundos" << endl;
+	cout << "\nTiempo total de la operacion: " << total_time / 1e9 << " segundos" << endl;
 	cout << "Tiempo promedio de la operacion: " << total_time/(n/2) << " nanosegundos" << endl;
 	total_time = 0;
 	delete la;

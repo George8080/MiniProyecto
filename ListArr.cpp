@@ -82,36 +82,39 @@ int ListArr::size(){
 
 ////////////	Insertar al inicio	////////////
 void ListArr::insert_left(int v){
-	Node* array = head;
-	if(array->num_elements == 0){
-		array->num_elements = 1;
-		this->num_elements = 1;
-		array->arr[0] = v;
-	}else{
+	NodeSummary* aux = root;
+	aux->total_size++;
+	Node* array = nullptr;
+	while(aux->left_child != nullptr){
+		aux = aux->left_child;
+		aux->total_size++;
+	}
+	Node* array = aux->left_arr;
+	if(array->num_elements < array->b){
 		int temp = v;
 		for (int i = 0; i < array->num_elements; ++i){
 			swap(temp,array->arr[i]);
 		}
-		if(array->num_elements==array->b){
-			Node* extra = new Node(arrSize);
-			extra->arr[0] = temp;
-			extra->num_elements++;
-			this->num_elements++;
-			extra->next = array->next;
-			num_arrays++;
-			if( num_arrays*arrSize > maxSize ) maxSize*=2;
-			array->next = extra;
-			this->createTree();
-			extra = nullptr;
-			delete extra;
-		}else{
-			array->arr[array->num_elements] = temp;
-			array->num_elements++;
-			this->num_elements++;
-		}
+		array->arr[array->num_elements] = temp;
+		array->num_elements++;
+		this->num_elements++;
+	}else{
+		Node* extra = new Node(arrSize);
+		extra->arr[0] = v;
+		extra->num_elements++;
+		this->num_elements++;
+		extra->next = array;
+		num_arrays++;
+		if( num_arrays*arrSize > maxSize ) maxSize*=2;
+		this->head = extra;
+		this->createTree();
+		extra = nullptr;
+		delete extra;
 	}
 	array = nullptr;
 	delete array;
+	aux = nullptr;
+	delete aux;
 }
 
 
@@ -123,12 +126,11 @@ void ListArr::insert_right(int v){
 	while(aux->left_child != nullptr || aux->right_child != nullptr){
 		if(aux->right_child != nullptr){
 			aux = aux->right_child;
-			aux->total_size++;
 		}
 		else{
 			aux = aux->left_child;
-			aux->total_size++;
 		}
+		aux->total_size++;
 	}
 	if(aux->right_arr != nullptr)
 		array = aux->right_arr;
