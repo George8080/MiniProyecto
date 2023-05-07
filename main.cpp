@@ -21,7 +21,7 @@ int main(){
 	
 	cout << "\nInsert left: " << endl;
 	for(unsigned long long i=0; i<n/2 ; ++i){
-		//cout << i << ' ';
+		cout << i << ' ';
 		auto start_time= chrono::high_resolution_clock::now();
 		la->insert_left(rd()%maxRandValue);
 		auto end_time = chrono::high_resolution_clock::now();
@@ -35,7 +35,7 @@ int main(){
 
 	cout << "\nInsert right: " << endl;
 	for(unsigned long long i=0; i<n/2 ; ++i){
-		//cout << i << ' ';
+		cout << i << ' ';
 		auto start_time= chrono::high_resolution_clock::now();
 		la->insert_right(rd()%maxRandValue);
 		auto end_time = chrono::high_resolution_clock::now();
@@ -49,7 +49,7 @@ int main(){
 
 	cout << "\nFind: " << endl;
 	for(unsigned long long i=0; i<n ; ++i){
-		//cout << i << ' ';
+		cout << i << ' ';
 		auto start_time= chrono::high_resolution_clock::now();
 		la->find(rd()%(maxRandValue*2));
 		auto end_time = chrono::high_resolution_clock::now();

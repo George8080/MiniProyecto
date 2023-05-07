@@ -89,7 +89,7 @@ void ListArr::insert_left(int v){
 		aux = aux->left_child;
 		aux->total_size++;
 	}
-	Node* array = aux->left_arr;
+	array = aux->left_arr;
 	if(array->num_elements < array->b){
 		int temp = v;
 		for (int i = 0; i < array->num_elements; ++i){
