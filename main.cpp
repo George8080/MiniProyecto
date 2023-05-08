@@ -10,18 +10,18 @@ using namespace std;
 int main(){
 	random_device rd;
 
-	const unsigned long long n = 1000000;
+	const unsigned long long n = 100000;
 	const unsigned long long b = 1;
 	const long long maxRandValue = 3;
 	double total_time=0;
-	
+	cout << "n: " << n << "\nb: " << b << endl;
 	////////////////////////////	ListArr 	////////////////////////////
 	cout << "\n-LIST ARRAY:" << endl;
 	ListArr *la = new ListArr(b);
 	
 	cout << "\nInsert left: " << endl;
 	for(unsigned long long i=0; i<n/2 ; ++i){
-		cout << i << ' ';
+		//cout << i << ' ';
 		auto start_time= chrono::high_resolution_clock::now();
 		la->insert_left(rd()%maxRandValue);
 		auto end_time = chrono::high_resolution_clock::now();
@@ -35,7 +35,7 @@ int main(){
 
 	cout << "\nInsert right: " << endl;
 	for(unsigned long long i=0; i<n/2 ; ++i){
-		cout << i << ' ';
+		//cout << i << ' ';
 		auto start_time= chrono::high_resolution_clock::now();
 		la->insert_right(rd()%maxRandValue);
 		auto end_time = chrono::high_resolution_clock::now();
@@ -49,7 +49,7 @@ int main(){
 
 	cout << "\nFind: " << endl;
 	for(unsigned long long i=0; i<n ; ++i){
-		cout << i << ' ';
+		//cout << i << ' ';
 		auto start_time= chrono::high_resolution_clock::now();
 		la->find(rd()%(maxRandValue*2));
 		auto end_time = chrono::high_resolution_clock::now();

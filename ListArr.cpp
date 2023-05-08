@@ -11,6 +11,7 @@ ListArr::ListArr(int b){
 	this->root = new NodeSummary(maxSize);
 	this->head = new Node(arrSize);
 	(this->root)->left_arr = head;
+	(this->root)->right_arr = nullptr;
 	this->num_arrays = 1;
 }
 
@@ -169,7 +170,7 @@ void ListArr::insert(int v, int pos){
 		Node* auxNode;
 		int i = pos;
 		(aux->total_size)++;
-		while(aux->left_arr == nullptr || aux->right_arr == nullptr){
+		while(aux->left_child != nullptr || aux->right_child != nullptr){
 			if(i < (aux->left_child)->total_size){
 				aux = aux->left_child;
 			}else{
@@ -183,11 +184,10 @@ void ListArr::insert(int v, int pos){
 			}
 			(aux->total_size)++;
 		}
-
-		if(aux->right_arr == nullptr){
+		if(i < (aux->left_arr)->num_elements){
 			auxNode = aux->left_arr;
 		}else{
-			if(i < (aux->left_arr)->num_elements)
+			if(aux->right_arr == nullptr)
 				auxNode = aux->left_arr;
 			else{
 				i = i - (aux->left_arr)->num_elements;
