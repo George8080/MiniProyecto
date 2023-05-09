@@ -121,7 +121,15 @@ void ListArr::insert_left(int v){
 		array->arr[array->num_elements] = temp;
 		array->num_elements++;
 		this->num_elements++;
-	}else{
+	}
+	/*
+	En el caso de que este todo el nodo lleno se debe
+	crear un nuevo nodo a la izquierda del head, el
+	cual almacenara el nuevo elemento y se volvera
+	el nuevo head del arbol; tambien se llamara a
+	createTree para actualizarlo
+	*/
+	else{
 		Node* extra = new Node(arrSize);
 		extra->arr[0] = v;
 		extra->num_elements++;
@@ -134,6 +142,11 @@ void ListArr::insert_left(int v){
 		extra = nullptr;
 		delete extra;
 	}
+	/*
+	Se borran los elementos de memoria dinamica
+	para evitar malgastar la memoria RAM del
+	dispositivo.
+	*/
 	array = nullptr;
 	delete array;
 	aux = nullptr;
@@ -144,7 +157,11 @@ void ListArr::insert_left(int v){
 ////////////	Insertar al final	////////////
 void ListArr::insert_right(int v){
 	/*
-	
+	Se crea un nodo resumen que apunta a 
+	la raiz, de esta manera a medida que
+	va recorriendo los nodos (desde la raiz
+	hasta lo mas a la derecha posible) va 
+	sumando al contador 
 	*/
 	NodeSummary* aux = root;
 	aux->total_size++;
@@ -165,6 +182,15 @@ void ListArr::insert_right(int v){
 	aux = nullptr;
 	delete aux;
 
+	/*
+	Si es que aun queda un espacio en el
+	arreglo entonces añadir el elemento y
+	sumarselo a su contador, si es que no
+	entonces crear un nuevo arreglo a la
+	derecha que almacene el valor y se sume
+	uno a su contador; tambien debe 
+	actualizar el arbol con createTree
+	*/
 	if(array->num_elements < arrSize){
 		array->arr[array->num_elements] = v;
 		array->num_elements++;
@@ -188,13 +214,31 @@ void ListArr::insert_right(int v){
 
 ////////////	Insertar elemento en 'pos'	////////////
 void ListArr::insert(int v, int pos){
-	try{
+	/*
+	Si la posicion esta fuera de los limites del
+	arbol entonces tirar un error al usuario
+	*/
+	try{	
 		if(0 > pos || num_elements < pos)
 			throw "ERROR: Indice esta fuera del arreglo!!";
+		/* 
+		Se crea un nodo resumen que apunta a 
+		la raiz, de esta manera a medida que
+		va recorriendo los nodos (desde la raiz)
+		va sumando al contador, y un nodo arreglo
+		para recibir el arreglo en el cual se
+		añadira el elemento
+		*/
 		NodeSummary* aux = root;
 		Node* auxNode;
 		int i = pos;
 		(aux->total_size)++;
+		/*
+		Mientras no llegen a los arreglos ir recorriendo
+		el arbol, si la posicion esta dentro del nodo hijo
+		de la derecha o si no existe izquierad recorrer 
+		este, si es que no entonces recorrer izquierda
+		*/
 		while(aux->left_child != nullptr || aux->right_child != nullptr){
 			if(i < (aux->left_child)->total_size){
 				aux = aux->left_child;
@@ -219,10 +263,21 @@ void ListArr::insert(int v, int pos){
 				auxNode = aux->right_arr;
 			}
 		}
+		/*
+		Una vez llegado al arreglo se debe generar
+		un espacio para ingresar el valor, moviendo 
+		los elementos ubicados en la posicion buscada
+		en adelante un espacio a la derecha
+		*/
 		int temp = v;
 		for (int j = i; j < auxNode->num_elements; ++j){
 			swap(temp,auxNode->arr[j]);
 		}
+		/*
+		Si al final falta espacio crear un nuevo nodo
+		que almacene el valor faltante y se actualice
+		el arbol, si no finalizar el movimiento anterior.
+		*/
 		if(auxNode->num_elements==auxNode->b){
 			Node* extra = new Node(arrSize);
 			extra->arr[0] = temp;
@@ -240,6 +295,10 @@ void ListArr::insert(int v, int pos){
 			auxNode->num_elements++;
 			this->num_elements++;
 		}
+		/*
+		Borrar los elementos de memoria dinamica
+		para evitar problemas con la RAM
+		*/
 		aux = nullptr;
 		delete aux;
 		auxNode = nullptr;
@@ -252,6 +311,12 @@ void ListArr::insert(int v, int pos){
 
 ////////////	Imprimir todos los elementos	////////////
 void ListArr::print(){
+	/*
+	Se crea un puntero a la cabeza, el cual se
+	ira actualizando con los siguientes nodos,
+	y por cada nodo que recorra imprimir todos
+	los valores del arreglo.
+	*/
 	Node* array = head;
 	while(array != nullptr){
 		for (int i = 0; i < array->num_elements; ++i){
