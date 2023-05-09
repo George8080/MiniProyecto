@@ -10,6 +10,16 @@ using namespace std;
 int main(){
 	random_device rd;
 
+	/* 
+	Definimos las constantes que vamos a ocupar para el 
+	analisis experimental, estas son:
+	El numero de experimentos y el tamaño que se le 
+	asignara al arreglo.
+	Al igual se crea la variable maxRandValue que nos da un
+	limite para los valores de los numeros enteros que seran 
+	ingresados en el arreglo, en este caso los valores variaran 
+	entre 0 y 2
+	*/
 	const unsigned long long n = 100000;
 	const unsigned long long b = 1;
 	const long long maxRandValue = 3;
@@ -19,6 +29,11 @@ int main(){
 	cout << "\n-LIST ARRAY:" << endl;
 	ListArr *la = new ListArr(b);
 	
+	/* Para medir todos los metodos se ocupo la misma metodologia
+	Se ingresa la operacion dentro de un ciclo for a traves del cual
+	se repetira de 0 hasta el numero de experimentos que se quiera
+	realizar*/
+
 	cout << "\nInsert left: " << endl;
 	for(unsigned long long i=0; i<n/2 ; ++i){
 		//cout << i << ' ';

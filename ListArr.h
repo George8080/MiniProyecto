@@ -6,7 +6,6 @@
 using namespace std;
 
     
-
 class ListArr : public ListArrADT {
 private:
     struct Node {
@@ -42,6 +41,12 @@ private:
             left_arr = nullptr;
             right_arr = nullptr;
         }
+        /*
+        Este metodo recibe un entero s que es el tamaño del nodo 
+        actual que se tiene.
+        Tambien recibe la capacidad máxima del arreglo y un nodo
+        arreglo 
+        */
         void generateTree(int s, int max, Node* &arr){
             if(arr == nullptr) return;
             if(s == max*2){
