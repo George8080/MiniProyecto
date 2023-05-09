@@ -4,6 +4,7 @@
 using namespace std;
 
 ////////////	Constructor del Arbol	////////////
+
 ListArr::ListArr(int b){
 	this->maxSize = b*2;
 	this->arrSize = b;
@@ -18,6 +19,12 @@ ListArr::ListArr(int b){
 
 ////////////	Destructor del Arbol	////////////
 ListArr::~ListArr(){
+	/* 
+	En este metodo se recorre todo el arbol haciendo
+	uso de stacks para recursivamente ir tomando los
+	nodos hijos de izquierda a derecha mientras los 
+	nodos padres se van borrando*/
+
 	queue<NodeSummary*> nodos;
 	queue<Node*> arreglos;
 	nodos.push(root);
@@ -46,6 +53,16 @@ ListArr::~ListArr(){
 
 ////////////	Crear arbol de nodos	////////////
 void ListArr::createTree(){
+	/* 
+	En este metodo para crear un arbol primero se borra el
+	arbol de los nodos resumenes
+	Luego se crea un puntero a la cabeza y tambien una nueva
+	raiz con el tamaño maximo actual 
+	Luego a partir de estas raices se crea un arbol
+	Primero borro el arbol, pero solo los nodos resumenes
+	creo un puntero a la cabeza se crea una nueva raiz con 
+	el tamaño maximo actual y luego partir estas raices crea
+	un arbol */
 	queue<NodeSummary*> nodos;
 	nodos.push(root);
 	while(nodos.size()>0){
@@ -73,6 +90,13 @@ int ListArr::size(){
 
 ////////////	Insertar al inicio	////////////
 void ListArr::insert_left(int v){
+	/* 
+	Se crea un nodo resumen que apunta a 
+	la raiz, de esta manera a medida que
+	va recorriendo los nodos (desde la raiz)
+	va sumando al contador 
+	*/
+
 	NodeSummary* aux = root;
 	aux->total_size++;
 	Node* array = nullptr;
@@ -81,6 +105,14 @@ void ListArr::insert_left(int v){
 		aux->total_size++;
 	}
 	array = aux->left_arr;
+	/*
+	Se asegura que no haya ningun espacio vacio a 
+	la derecha del arreglo para cuando se quiera
+	insertar un elemento a la izquierda, se pueda
+	garantizar que se esta haciendo uso eficiente 
+	de la memoria y el espacio del arreglo
+	*/
+
 	if(array->num_elements < array->b){
 		int temp = v;
 		for (int i = 0; i < array->num_elements; ++i){
@@ -111,6 +143,9 @@ void ListArr::insert_left(int v){
 
 ////////////	Insertar al final	////////////
 void ListArr::insert_right(int v){
+	/*
+	
+	*/
 	NodeSummary* aux = root;
 	aux->total_size++;
 	Node* array = nullptr;
@@ -230,7 +265,18 @@ void ListArr::print(){
 
 
 ////////////	Buscar si existe el entero 'v'	////////////
+
+	/* Esta funcion recibe como parametro un entero v que procede
+   		a buscar en el arreglo
+ 	*/
 bool ListArr::find(int v){
+	/* Se crea un nodo auxiliario que recibe el valor de la cabeza
+	de los nodos arreglo
+		Mientras este valor exista se busca en el arreglo si el
+		entero v se encuentra entre los elementos ingresados, si
+		se encuentra se retorna verdadero, de lo contrario
+
+	*/
 	Node* array = head;
 	while(array != nullptr){
 		for (int i = 0; i < array->num_elements; ++i){
