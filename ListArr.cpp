@@ -31,12 +31,6 @@ ListArr::~ListArr(){
 			arreglos.push((nodos.front())->left_arr);
 		if((nodos.front())->right_arr!=nullptr)
 			arreglos.push((nodos.front())->right_arr);
-		/*if((nodos.front())!=nullptr){
-			nodos.push((nodos.front())->left_child);
-			nodos.push((nodos.front())->right_child);
-			arreglos.push((nodos.front())->left_arr);
-			arreglos.push((nodos.front())->right_arr);
-		}*/
 
 		NodeSummary* auxSum = nodos.front();
 		nodos.pop();
@@ -59,10 +53,6 @@ void ListArr::createTree(){
 			nodos.push((nodos.front())->left_child);
 			nodos.push((nodos.front())->right_child);
 		}
-		//if((nodos.front())->left_child!=nullptr)
-		//	nodos.push((nodos.front())->left_child);
-		//if((nodos.front())->right_child!=nullptr)
-		//	nodos.push((nodos.front())->right_child);
 		NodeSummary* auxSum;
 		auxSum = nodos.front();
 		nodos.pop();
